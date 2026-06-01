@@ -3,9 +3,16 @@ import java.util.Map;
 
 public class ShoppingCart {
 
-    private Map<String, Double> items = new HashMap<>();
+    private final Map<String, Double> items = new HashMap<>();
+
+    private boolean isValidPrice(double price) {
+        return price > 0.0;
+    }
 
     public void addItem(String name, double price) {
+        if (name == null || !isValidPrice(price)) {
+            return;
+        }
         items.put(name, price);
     }
 
@@ -26,7 +33,7 @@ public class ShoppingCart {
     }
     public double getTotalWithDiscount() {
         double total = getTotal();
-        if (total >= 100) {
+        if (total > 100.0) {
             return total * 0.9;
         }
         return total;
@@ -36,6 +43,13 @@ public class ShoppingCart {
         return items.size();
     }
 
-    public void updateItemPrice(String name, int newPrice) {}
+    public void updateItemPrice(String name, double newPrice) {
+        if (name == null || !isValidPrice(newPrice)) {
+            return;
+        }
+        if (items.containsKey(name)) {
+            items.put(name, newPrice);
+        }
+    }
 
 }
