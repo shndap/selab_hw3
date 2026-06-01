@@ -26,6 +26,17 @@ public class ShoppingCartEdgeCaseTest {
         assertEquals(0.0, cart.getTotal());
     }
 
+    // بررسی اینکه نام خالی یا null در افزودن کالا نادیده گرفته می‌شود
+    @Test
+    public void testAddItemWithNullNameShouldBeIgnored() {
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.addItem(null, 10);
+
+        assertEquals(0, cart.getItemCount());
+        assertEquals(0.0, cart.getTotal());
+    }
+
     // بررسی اینکه به‌روزرسانی با قیمت نامعتبر هیچ تغییری ایجاد نمی‌کند
     @Test
     public void testUpdateItemPriceWithInvalidPriceShouldDoNothing() {
@@ -33,6 +44,18 @@ public class ShoppingCartEdgeCaseTest {
 
         cart.addItem("Notebook", 30);
         cart.updateItemPrice("Notebook", -10);
+
+        assertEquals(30.0, cart.getTotal());
+        assertEquals(1, cart.getItemCount());
+    }
+
+    // بررسی اینکه نام null در به‌روزرسانی قیمت هیچ تغییری ایجاد نمی‌کند
+    @Test
+    public void testUpdateItemPriceWithNullNameShouldDoNothing() {
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.addItem("Notebook", 30);
+        cart.updateItemPrice(null, 50);
 
         assertEquals(30.0, cart.getTotal());
         assertEquals(1, cart.getItemCount());

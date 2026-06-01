@@ -29,6 +29,18 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 
 سه تست مربوط به `updateItemPrice` از حالت کامنت خارج شدند تا شکست اولیه دیده شود.
 
+خروجی اجرای تست‌ها در فاز قرمز:
+
+- `7 tests found`
+- `0 tests skipped`
+- `6 tests successful`
+- `1 test failed`
+
+خطای اصلی:
+
+- `testUpdateItemPrice_ShouldChangePrice`
+- `expected: <80.0> but was: <50.0>`
+
 اسکرین‌شات خروجی تست‌های شکست‌خورده: `<put failing-test screenshot here>`
 
 ### فاز 3: GREEN
@@ -44,6 +56,13 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 
 کد خواناتر شد و منطق اعتبارسنجی قیمت در یک تابع کمکی متمرکز شد.
 
+خروجی اجرای تست‌های موفق:
+
+- `16 tests found`
+- `1 test skipped`
+- `15 tests successful`
+- `0 tests failed`
+
 اسکرین‌شات خروجی تست‌های موفق: `<put passing-test screenshot here>`
 
 ## 3) تست‌های اضافه‌شده
@@ -51,7 +70,9 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 - `testRemoveMissingItemShouldReturnFalse`
 - `testEmptyCartHasZeroTotalAndDiscount`
 - `testAddItemWithInvalidPriceShouldBeIgnored`
+- `testAddItemWithNullNameShouldBeIgnored`
 - `testUpdateItemPriceWithInvalidPriceShouldDoNothing`
+- `testUpdateItemPriceWithNullNameShouldDoNothing`
 - `testDiscountAtExactThresholdWithDecimalPrices`
 - `testDuplicateItemNameShouldOverwritePriceWithoutChangingCount`
 - `testManyItemsShouldProduceAccurateTotal`
@@ -62,27 +83,27 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 
 ## 5) پاسخ سوال 2
 
-برای آشکار کردن باگ، تست‌های جدیدی برای `updateItemPrice` و سناریوی مرزی تخفیف نوشته شد. ابتدا تست‌ها در فاز RED شکست خوردند، سپس پیاده‌سازی اصلاح شد و در نهایت تست‌ها پاس شدند. خروجی شکست‌خورده و خروجی موفقیت‌آمیز باید به‌صورت تصویر در گزارش قرار داده شوند.
+برای آشکار کردن باگ، تست‌های جدیدی برای `updateItemPrice` و سناریوی مرزی تخفیف نوشته شد. ابتدا تست `testUpdateItemPrice_ShouldChangePrice` در فاز RED شکست خورد و نشان داد که متد هنوز قیمت را تغییر نمی‌دهد. سپس پیاده‌سازی اصلاح شد و در نهایت همه تست‌ها پاس شدند. خروجی شکست‌خورده و خروجی موفقیت‌آمیز باید به‌صورت تصویر در گزارش قرار داده شوند.
 
 ## 6) گزارش پوشش تست
 
 ### پوشش اولیه
 
-- Line Coverage: `<put initial line coverage here>`
-- Method Coverage: `<put initial method coverage here>`
-- Branch Coverage: `<put initial branch coverage here>`
+- Line Coverage: `84.62%`
+- Method Coverage: `100.00%`
+- Branch Coverage: `61.11%`
 
 ### پوشش پس از بهبود
 
-- Line Coverage: `<put final line coverage here>`
-- Method Coverage: `<put final method coverage here>`
-- Branch Coverage: `<put final branch coverage here>`
+- Line Coverage: `100.00%`
+- Method Coverage: `100.00%`
+- Branch Coverage: `100.00%`
 
 تحلیل تغییرات پوشش:
 
-- `<put lines newly covered here>`
-- `<put branches newly covered here>`
-- `<put most effective test here>`
+- خطوط پوشش‌ندارِ اولیه با اضافه شدن تست‌های سبد خالی، قیمت نامعتبر، نام `null`، و مجموع دقیقاً 100 به‌طور کامل پوشش داده شدند.
+- شاخه‌های بدون پوشش اولیه مربوط به مسیرهای `null` و شرط‌های رد ورودی نامعتبر بودند که با تست‌های جدید پوشش داده شدند.
+- مؤثرترین تست‌ها در بهبود پوشش: `testAddItemWithNullNameShouldBeIgnored` و `testUpdateItemPriceWithNullNameShouldDoNothing`
 
 ## 7) سوال‌هایی که باید در ویدئو پاسخ داده شوند
 
@@ -97,5 +118,8 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 ## 9) وضعیت اجرای محلی
 
 - `javac src/*.java` با موفقیت اجرا شد.
-- اجرای کامل تست‌های JUnit در این محیط به‌صورت خط فرمان ممکن نبود، چون وابستگی‌های JUnit به‌صورت محلی در دسترس نبودند.
-
+- اجرای کامل تست‌های JUnit در خط فرمان با موفقیت انجام شد.
+- نتایج اجرا:
+  - حالت اولیه: `7 tests found`, `1 skipped`, `6 successful`, `0 failed`
+  - حالت نهایی: `16 tests found`, `1 skipped`, `15 successful`, `0 failed`
+  - اجرای RED روی نسخه اولیه: `7 tests found`, `0 skipped`, `6 successful`, `1 failed`
