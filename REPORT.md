@@ -2,6 +2,18 @@
 
 لینک مخزن هم‌گیت: `<put hamgit repo link here>`
 
+برای به‌دست آوردن لینک فعلی مخزن:
+
+```bash
+git remote get-url origin
+```
+
+اگر هنوز remote تنظیم نشده باشد، با این دستور آن را ثبت کنید:
+
+```bash
+git remote add origin <hamgit-repo-url>
+```
+
 ## 1) خلاصه تغییرات
 
 - باگ‌های موجود در `ShoppingCart` بررسی و اصلاح شد.
@@ -43,6 +55,15 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 
 اسکرین‌شات خروجی تست‌های شکست‌خورده: `<put failing-test screenshot here>`
 
+برای تولید خروجی فاز RED و گرفتن اسکرین‌شات:
+
+```bash
+git worktree add /tmp/red-phase f2fa427^
+cd /tmp/red-phase
+rm -rf out && mkdir -p out && javac -d out -cp /tmp/junit-extract/usr/share/java/junit-jupiter-api-5.10.1.jar:/tmp/junit-extract/usr/share/java/apiguardian-api-1.1.2.jar:/tmp/junit-extract/usr/share/java/opentest4j-1.2.0.jar src/*.java Test/*.java
+java -jar /tmp/junit-extract/usr/share/java/junit-platform-console-standalone-1.9.1.jar -cp out --scan-classpath
+```
+
 ### فاز 3: GREEN
 
 متد `updateItemPrice` پیاده‌سازی شد به‌طوری که:
@@ -64,6 +85,14 @@ Commit مربوط به تغییرات اصلی: `f2fa427`
 - `0 tests failed`
 
 اسکرین‌شات خروجی تست‌های موفق: `<put passing-test screenshot here>`
+
+برای تولید خروجی فاز GREEN و گرفتن اسکرین‌شات:
+
+```bash
+cd /home/sahand/Desktop/selab_hw3/base-project-for-tdd-shoppingcart-main
+rm -rf out && mkdir -p out && javac -d out -cp /tmp/junit-extract/usr/share/java/junit-jupiter-api-5.10.1.jar:/tmp/junit-extract/usr/share/java/apiguardian-api-1.1.2.jar:/tmp/junit-extract/usr/share/java/opentest4j-1.2.0.jar src/*.java Test/*.java
+java -jar /tmp/junit-extract/usr/share/java/junit-platform-console-standalone-1.9.1.jar -cp out --scan-classpath
+```
 
 ## 3) تست‌های اضافه‌شده
 
